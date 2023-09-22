@@ -1,3 +1,4 @@
+# HEXA
 
 ### Development mode
 ```
@@ -13,3 +14,6 @@ npx shadow-cljs browser-repl
 ```
 npx shadow-cljs release app
 ```
+
+### With inspiration from
+CSS tiles: Graham Pyne https://codepen.io/gpyne/pen/npdQgW
