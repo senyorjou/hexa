@@ -9,22 +9,6 @@
 (def SIN-A (js/Math.sin A))
 
 
-(defn x-deltas
-  "Returns max x-deltas, begins at second element of the sequence"
-  [max]
-  (map
-   (fn [x] (* x (* R (+ 1 (js/Math.cos A)))))
-   (range 1 (inc max))))
-
-(defn y-sequence
-  [step]
-  (* step R (js/Math.sin A)))
-
-(defn y-deltas
-  [initial-y]
-  (cycle [initial-y (+ initial-y (* R (js/Math.sin A)))]))
-
-
 (defn clear-board []
   (.clearRect ctx 0 0 canvas.width canvas.height))
 
@@ -47,22 +31,25 @@
    (.stroke ctx)))
 
 
-(defn to-hexa
-  "Converts a x,y point to the hexa map"
+(defn draw
+  "Converts a x,y point to the hexa map
+   x increments by the R radius
+   y is doubled and increments also if odd value"
   [x y color]
   (let [X (* (inc x) (* R (+ 1 COS-A)))
         Y (cond-> (* (* 2 (inc y)) R SIN-A)
             (odd? x) (+ (* R SIN-A)))]
     (draw-hexa X Y color)))
 
-(defn draw-row
-  "Draws a row at vertical position y"
-  [width y]
-  (mapv (fn [x-delta y-delta]
-          (draw-hexa x-delta (+ y y-delta)))
-        (x-deltas width)
-        (y-deltas y)))
 
+(defn create-object [x y color]
+  (draw x y color)
+  (draw (dec x) y color)
+  (draw (dec x) (inc y) color)
+  (draw x (dec y) color)
+  (draw x (inc y) color)
+  (draw (inc x) y color)
+  (draw (inc x) (inc y) color))
 
 
 (defn draw-board
@@ -71,4 +58,4 @@
   (doall
    (for [x (range width)
          y (range height)]
-     (to-hexa x y "#CCC8AA"))))
+     (draw x y "#CCC8AA"))))

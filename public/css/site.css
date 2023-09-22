@@ -1,12 +1,18 @@
+@import url(https://fonts.googleapis.com/css?family=Merriweather);
+
+html {
+  font-family: Merriweather, Georgia, serif;
+  font-size: 62.5%;
+}
+
 body {
-  font-family: 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
-  max-width: 600px;
+  color: hsl(0, 0%, 10%);
+  background-color: hsl(0, 0%, 95%);
+  max-width: 920px;
   margin: 0 auto;
-  padding-top: 72px;
-  -webkit-font-smoothing: antialiased;
-  font-size: 1.125em;
-  color: #333;
-  line-height: 1.5em;
+  padding: 30px;
+  bottom: 0;
+  top: 0;
 }
 
 h1, h2, h3 {
@@ -37,4 +43,74 @@ a:hover {
 
 #board {
     border: 2px solid white;
+}
+
+.hexa {
+  position: relative;
+  display: inline-block;
+  /* left/right margin approx. 25% of .hexagon width + spacing */
+  margin: 0px 4px;
+  background-color: hsl(220, 75%, 75%);
+  text-align: center;
+}
+.hexa, .hexa::before, .hexa::after {
+  /* easy way: height is width * 1.732
+  actual formula is 2*(width/(2*Math.tan(Math.PI/6)))
+  remove border-radius for sharp corners on hexagons */
+  width: 16px;
+  height: 28px;
+  #border-radius: 15%/5%;
+  border-top: 1px solid hsl(0, 0%, 75%);
+  border-bottom: 1px solid hsl(0, 0%, 75%);
+
+}
+.hexa::before {
+  background-color: inherit;
+  content: "";
+  position: absolute;
+  left: 0;
+  transform: rotate(-60deg);
+  border-top: 1px solid hsl(0, 0%, 75%);
+  border-bottom: 1px solid hsl(0, 0%, 75%);
+}
+.hexa::after {
+  background-color: inherit;
+  content: "";
+  position: absolute;
+  left: 0;
+  transform: rotate(60deg);
+  border-top: 1px solid hsl(0, 0%, 75%);
+  border-bottom: 1px solid hsl(0, 0%, 75%);
+}
+.hexa:nth-child(even) {
+  /* top approx. 50% of .hexagon height + spacing */
+  top: 14px;
+}
+.hexa:hover {
+  background-color: hsla(60, 75%, 75%, 1.0);
+  cursor: pointer;
+  z-index: 105;
+}
+.hexa:active {
+  background-color: hsla(60, 75%, 50%, 1.0);
+  z-index: 110;
+}
+
+.hexatext {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140%;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  z-index: 100;
+  color: hsl(0, 0%, 44%)
+}
+.ibws-fix {
+  /* inline-block whitespace fix */
+  font-size: 0;
+}
+.world {
+    margin: 20px 0;
 }

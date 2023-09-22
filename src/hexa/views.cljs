@@ -1,6 +1,7 @@
 (ns hexa.views
   (:require [hexa.canvas :as C]
-            [hexa.state :as S]))
+            [hexa.state :as S]
+            [hexa.main :as M]))
 
 
 (defn draw-canvas []
@@ -13,10 +14,14 @@
   (js/console.log xy))
 
 (defn change []
-  (C/to-hexa 5 5 "red")
-  (C/to-hexa 6 5 "blue")
-  (C/to-hexa 7 5 "red")
+  (C/draw 4 5 "red")
+  (C/draw 3 5 "red")
+  (C/draw 2 6 "red")
+  (C/draw 1 6 "red")
   )
+
+(defn object []
+  (C/create-object 1 1 "red"))
 
 
 
@@ -41,6 +46,7 @@
                                               .-target
                                               .-value))}]
     [:button {:id "change-sq"
-              :on-click change}
+              :on-click object}
      "Change!"]
-    ]])
+    ]
+   (M/main)])
